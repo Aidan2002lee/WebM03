@@ -4,5 +4,5 @@ class Student < ApplicationRecord
         test "should raise error when saving student without graduation date" do
             assert_raises ActiveRecord::RecordInvalid do
                 Student.create!
-            end
+    end
 end
