@@ -19,15 +19,16 @@ class StudentsController < ApplicationController
   def edit
   end
 
+  
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
 
     respond_to do |format|
-      if @student.save
-        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
-        format.json { render :show, status: :created, location: @student }
-      else
+     if @student.save
+       format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+       format.json { render :show, status: :created, location: @student }
+     else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
@@ -36,6 +37,8 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    
+
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
@@ -63,8 +66,7 @@ class StudentsController < ApplicationController
       @student = Student.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :school_email, :major, :minor, :graduation_date)
+      params.require(:student).permit(:first_name, :last_name, :school_email, :major, :minor, :graduation_date, :profile_picture)
     end
 end
