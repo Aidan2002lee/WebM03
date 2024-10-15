@@ -2,12 +2,18 @@ class Student < ApplicationRecord
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates :major, presence: true
-    validates :expected_graduation_date, presence: true
+    validates :graduation_date, presence: true
     validates :school_email, presence: true
     validates :school_email, uniqueness: true
     validate :school_email_format
     has_one_attached :profile_picture
     validate :acceptable_image
+
+    VALID_MAJORS = ["Computer Engineering BS", "Computer Information Systems BS",
+       "Computer Science BS", "Cybersecurity Major", "Data Science and Machine Learning Major"]
+
+   validates :major, inclusion: { in: VALID_MAJORS, message: "%{value} is not a valid major" }
+
 
     def school_email_format
         unless school_email =~ /\A[\w+\-.]+@msudenver\.edu\z/i
