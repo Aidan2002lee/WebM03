@@ -57,6 +57,15 @@ class StudentsController < ApplicationController
     end
   end
 
+  if params[:graduation_date_from].present? && params[:graduation_date_from].present?
+    @students = @students.where(graduation_date: params[:graduation_date_from]..params[:graduation_date_to])
+  elseif params[:graduation_date_from].present?
+    @students = @students.where('graduation_date >= ?', params[:graduation_date_from])
+  elseif params[:graduation_date_from].present?
+    @students = @studentss.where('graduation_date <= ?', params[;graduation_date_to])
+  end
+end
+
   # DELETE /students/1 or /students/1.json
   def destroy
     @student.destroy!
