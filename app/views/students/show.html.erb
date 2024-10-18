@@ -8,15 +8,6 @@
 
   <%= button_to "Destroy this student", @student, method: :delete %>
 </div>
-<p>
-  <strong>Profile Picture:</strong><br>
-  <%= student.profile_picture %>
-    <% if student.profile_picture.attached? %>
-      <%= image_tag @student.profile_picture %>
-    <% else %>
-      <%= image_tag asset_path('default_profile.png'), size: '50x30' %>
-    <% end %>
-</p>
 
 
 
