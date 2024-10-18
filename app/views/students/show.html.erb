@@ -12,9 +12,9 @@
   <strong>Profile Picture:</strong><br>
   <%= student.profile_picture %>
     <% if student.profile_picture.attached? %>
-      <%= image_tag student.profile_picture %>
+      <%= image_tag @student.profile_picture %>
     <% else %>
-      <%= image_tag 'default_profile.png' %>
+      <%= image_tag asset_path('default_profile.png'), size: '50x30' %>
     <% end %>
 </p>
 
