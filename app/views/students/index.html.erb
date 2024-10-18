@@ -11,41 +11,9 @@
   <% end %>
 </div>
 
+
 <%= link_to "New student", new_student_path %>
 <%= render 'search_form', search_params: @search_params %>
 
-<%= form_with (url: students_path, method: :get, local: true) do |form| %>
-  <div class = "form-row">
-    <div class = "col">
-      <%= label_tag :graduation_date_from, "Graduation Date From" %>
-      <%= label_field_tag: graduation_date_from, params[:graduation_date_from], class: "form_control" %>
-    </div>
-    <div class = "col">
-      <%= label_tag :graduation_date_to, "Graduation Date To" %>
-      <%= label_field_tag: graduation_date_to, params[:graduation_date_to], class: "form_control" %>
-    </div>
-    <div class = "col">
-      <%= submit_tag 'Search', class: "btn btn-primary mt-4" 
-    </div>
-  </div>
-<% end %>
 
-<table class = "table">
-  <head>
-    <r>
-      <h>First Name</h>
-      <h>Last Name</h>
-      <h>Graduation Date</h>
-    </r>
-  </head>
-  <body>
-    <% @students.each do |student| %>
-      <r>
-        <d><%= student.first_name %></d>
-        <d><%= student.last_name %></d>
-        <d><%= student.graduation_date %></d>
-      </r>
-    <% end %>
-  </body>
-</table>
 

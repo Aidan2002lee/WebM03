@@ -1,1 +1,2 @@
-<% = image_tag 'default_profile.png' %>
+<%= image_tag 'default_profile.png' %>
+

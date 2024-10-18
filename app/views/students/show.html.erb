@@ -2,21 +2,22 @@
 
 <%= render @student %>
 
-<p>
- <strong>Profile Picture:</strong>
- <br>
- <% if @student.profile_picture.attached? %>
- <%= image_tag @student.profile_picture %>
- <% else %>
- <%= image_tag 'default_profile.png', size: '50x30' %>
- <% end %>
- </p>
-
 <div>
   <%= link_to "Edit this student", edit_student_path(@student) %> |
   <%= link_to "Back to students", students_path %>
 
   <%= button_to "Destroy this student", @student, method: :delete %>
 </div>
+<p>
+  <strong>Profile Picture:</strong><br>
+  <%= student.profile_picture %>
+    <% if student.profile_picture.attached? %>
+      <%= image_tag student.profile_picture %>
+    <% else %>
+      <%= image_tag 'default_profile.png' %>
+    <% end %>
+</p>
+
+
 
 

@@ -29,9 +29,15 @@
     <%= student.graduation_date %>
   </p>
 
-  <p>
-  <strong>Profile Picture:</strong>
+<p>
+  <strong>Profile Picture:</strong><br>
   <%= student.profile_picture %>
-  </p>
+    <%= student.profile_picture %>
+    <% if student.profile_picture.attached? %>
+      <%= image_tag student.profile_picture %>
+    <% else %>
+      <%= image_tag 'default_profile.png' %>
+    <% end %>
+</p>
 
 </div>
