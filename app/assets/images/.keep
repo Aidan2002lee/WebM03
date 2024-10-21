@@ -1,1 +1,3 @@
-<%= image_tag 'default_image.png' %>
+<%= image_tag 'default_profile.png' %>
+
+has_one_attached :profile_picture, dependent: :purge_later
