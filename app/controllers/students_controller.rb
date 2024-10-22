@@ -13,6 +13,14 @@ class StudentsController < ApplicationController
     if @search_params[:major].present?
       @students = @students.where(major: @search_params[:major])
     end
+
+    if @search_params[:graduation_date_to].present? && params[:graduation_date_from].present?
+      @students = @students.where(graduation_date: @search_params[:graduation_date_from]..@search_params[:graduation_date_to])
+    elseif @search_params[:graduation_date_from].present?
+      @students = @students.where('graduation_date >= ?', params[:graduation_date_from])
+    elseif params[:graduation_date_to].present?
+      @students = @students.where('graduation_date <= ?', params[:graduation_date_to])
+    end
   end
 
   # GET /students/1 or /students/1.json
@@ -54,17 +62,6 @@ class StudentsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-
-  def search
-    if params[:graduation_date_to].present? && params[:graduation_date_from].present?
-      @students = @students.where(graduation_date: params[:graduation_date_from]..params[:graduation_date_to])
-    elseif params[:graduation_date_from].present?
-      @students = @students.where('graduation_date >= ?', params[:graduation_date_from])
-    elseif params[:graduation_date_from].present?
-      @students = @students.where('graduation_date <= ?', params[:graduation_date_to])
     end
   end
 

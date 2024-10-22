@@ -37,3 +37,26 @@ describe "GET /students" do
   end
 end
 
+describe "Get /students (search functionality)" do
+  context "with valid parameters" do
+
+    # Test 6: Completes the search functionality test to verify that students are returned when searching by graduation date
+    it "returns sutdents matching graduation date" do
+      get students_path, params {search: {graduation_date}}
+      expect(response).to have_http_stauts(:ok)
+    end
+    # Test 10 Search by student and get a 200 status
+    it "returns a successful status" do
+      get students_path
+      expect(response).to have_http_status(200)
+    end
+    # Test 12: Search by student gets a 404 message
+    it "resturns an error message" do
+      get students_path
+      expext(response).to have_http_status(404)
+    end
+  end
+end
+
+
+
