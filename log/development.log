@@ -4600,3 +4600,412 @@ Search Params: {}
 Completed 200 OK in 165ms (Views: 136.3ms | ActiveRecord: 3.7ms | Allocations: 2801)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (8.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTruncate Tables (82.2ms)[0m  [1m[31mDELETE FROM "active_storage_blobs";
+DELETE FROM "active_storage_attachments";
+DELETE FROM "active_storage_variant_records";
+DELETE FROM "students"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (11.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddIndexToStudentsSchoolEmail (20240917191230)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (8.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_students_on_school_email" ON "students" ("school_email")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240917191230') RETURNING "version"[0m
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddProfilePictureToUsers (20240922024733)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (9.1ms)[0m  [1m[35mALTER TABLE "students" ADD "profile_picture" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20240922024733') RETURNING "version"[0m
+  [1m[36mTRANSACTION (5.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to RemoveStudentsSchoolEmail (20241026031132)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "astudents" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar DEFAULT NULL, "last_name" varchar DEFAULT NULL, "school_email" varchar DEFAULT NULL, "major" varchar DEFAULT NULL, "minor" varchar DEFAULT NULL, "graduation_date" date DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "profile_picture" varchar DEFAULT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_astudents_on_school_email" ON "astudents" ("school_email")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "astudents" ("id","first_name","last_name","school_email","major","minor","graduation_date","created_at","updated_at","profile_picture")
+                     SELECT "id","first_name","last_name","school_email","major","minor","graduation_date","created_at","updated_at","profile_picture" FROM "students"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE "students"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "students" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar DEFAULT NULL, "last_name" varchar DEFAULT NULL, "major" varchar DEFAULT NULL, "minor" varchar DEFAULT NULL, "graduation_date" date DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "profile_picture" varchar DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "students" ("id","first_name","last_name","major","minor","graduation_date","created_at","updated_at","profile_picture")
+                     SELECT "id","first_name","last_name","major","minor","graduation_date","created_at","updated_at","profile_picture" FROM "astudents"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "astudents"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20241026031132') RETURNING "version"[0m
+  [1m[36mTRANSACTION (9.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 172.17.0.1 at 2024-10-26 03:18:06 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[36mActiveRecord::SchemaMigration Load (1.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by StudentsController#index as HTML
+Params: #<ActionController::Parameters {"controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: {}
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (6.9ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 190.8ms | Allocations: 1918)
+  Rendered students/index.html.erb within layouts/application (Duration: 657.3ms | Allocations: 4865)
+  Rendered layout layouts/application.html.erb (Duration: 3335.1ms | Allocations: 24531)
+Completed 200 OK in 23185ms (Views: 3571.9ms | ActiveRecord: 200.7ms | Allocations: 320270)
+
+
+Started GET "/students?search%5Bmajor%5D=Computer+Engineering+BS&commit=Search" for 172.17.0.1 at 2024-10-26 03:18:46 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+  Parameters: {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search"}
+Params: #<ActionController::Parameters {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search", "controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: #<ActionController::Parameters {"major"=>"Computer Engineering BS"} permitted: false>
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (2.5ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."major" = ?[0m  [["major", "Computer Engineering BS"]]
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 4.4ms | Allocations: 1160)
+  Rendered students/index.html.erb within layouts/application (Duration: 22.4ms | Allocations: 2586)
+  Rendered layout layouts/application.html.erb (Duration: 178.9ms | Allocations: 4231)
+Completed 200 OK in 241ms (Views: 179.8ms | ActiveRecord: 6.7ms | Allocations: 5740)
+
+
+Started GET "/students?search%5Bmajor%5D=Computer+Engineering+BS&commit=Search" for 172.17.0.1 at 2024-10-26 03:19:12 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+  Parameters: {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search"}
+Params: #<ActionController::Parameters {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search", "controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: #<ActionController::Parameters {"major"=>"Computer Engineering BS"} permitted: false>
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (2.2ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."major" = ?[0m  [["major", "Computer Engineering BS"]]
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 4.8ms | Allocations: 1298)
+  Rendered students/index.html.erb within layouts/application (Duration: 21.5ms | Allocations: 1951)
+  Rendered layout layouts/application.html.erb (Duration: 168.7ms | Allocations: 3596)
+Completed 200 OK in 195ms (Views: 175.8ms | ActiveRecord: 2.1ms | Allocations: 3919)
+
+
+Started GET "/students/new" for 172.17.0.1 at 2024-10-26 03:19:57 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#new as HTML
+Completed 406 Not Acceptable in 160ms (ActiveRecord: 4.4ms | Allocations: 9314)
+
+
+  
+ActionController::MissingExactTemplate (StudentsController#new is missing a template for request formats: text/html):
+  
+actionpack (7.1.4) lib/action_controller/metal/implicit_render.rb:47:in `default_render'
+actionpack (7.1.4) lib/action_controller/metal/basic_implicit_render.rb:7:in `send_action'
+actionpack (7.1.4) lib/abstract_controller/base.rb:224:in `process_action'
+actionpack (7.1.4) lib/action_controller/metal/rendering.rb:165:in `process_action'
+actionpack (7.1.4) lib/abstract_controller/callbacks.rb:259:in `block in process_action'
+activesupport (7.1.4) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.6) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.6) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.4) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.1.4) lib/action_text/rendering.rb:23:in `with_renderer'
+actiontext (7.1.4) lib/action_text/engine.rb:69:in `block (4 levels) in <class:Engine>'
+activesupport (7.1.4) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.1.4) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.4) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.4) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.4) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.4) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.4) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.4) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.4) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.4) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.4) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.4) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.4) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.4) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.4) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.4) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.4) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.4) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.4) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.4) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.4) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.4) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.4) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.4) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack (3.1.7) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.1.7) lib/rack/etag.rb:29:in `call'
+rack (3.1.7) lib/rack/conditional_get.rb:31:in `call'
+rack (3.1.7) lib/rack/head.rb:15:in `call'
+actionpack (7.1.4) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.4) lib/action_dispatch/http/content_security_policy.rb:33:in `call'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:272:in `context'
+rack-session (2.0.0) lib/rack/session/abstract/id.rb:266:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.4) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.4) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.4) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:19:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.4) lib/active_support/tagged_logging.rb:139:in `block in tagged'
+activesupport (7.1.4) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.4) lib/active_support/tagged_logging.rb:139:in `tagged'
+activesupport (7.1.4) lib/active_support/broadcast_logger.rb:241:in `method_missing'
+railties (7.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.1.7) lib/rack/method_override.rb:28:in `call'
+rack (3.1.7) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.4) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.4) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.1.7) lib/rack/sendfile.rb:114:in `call'
+actionpack (7.1.4) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.4) lib/rails/engine.rb:536:in `call'
+puma (6.4.2) lib/puma/configuration.rb:272:in `call'
+puma (6.4.2) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.2) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.2) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.2) lib/puma/server.rb:464:in `process_client'
+puma (6.4.2) lib/puma/server.rb:245:in `block in run'
+puma (6.4.2) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/students/new" for 172.17.0.1 at 2024-10-26 03:25:00 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/_form.html.erb (Duration: 270.2ms | Allocations: 3751)
+  Rendered students/new.html.erb within layouts/application (Duration: 516.3ms | Allocations: 4049)
+  Rendered layout layouts/application.html.erb (Duration: 750.0ms | Allocations: 6054)
+Completed 200 OK in 1137ms (Views: 787.3ms | ActiveRecord: 198.6ms | Allocations: 13006)
+
+
+Started POST "/students" for 172.17.0.1 at 2024-10-26 03:25:56 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"Math", "graduation_date"=>"2025-05-25", "profile_picture"=>"Violet Cat.jpg"}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 500ms (ActiveRecord: 0.0ms | Allocations: 6259)
+
+
+  
+ActiveSupport::MessageVerifier::InvalidSignature (mismatched digest):
+  
+app/controllers/students_controller.rb:42:in `create'
+Started POST "/students" for 172.17.0.1 at 2024-10-26 03:32:00 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"Math", "graduation_date"=>"2025-05-25", "profile_picture"=>"Violet Cat.jpg"}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 390ms (ActiveRecord: 0.0ms | Allocations: 9386)
+
+
+  
+ActiveSupport::MessageVerifier::InvalidSignature (mismatched digest):
+  
+app/controllers/students_controller.rb:42:in `create'
+Started POST "/students" for 172.17.0.1 at 2024-10-26 03:37:55 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"Math", "graduation_date"=>"2025-05-25", "profile_picture"=>"Violet Cat.jpg"}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 0.0ms | Allocations: 897)
+
+
+  
+ActiveSupport::MessageVerifier::InvalidSignature (mismatched digest):
+  
+app/controllers/students_controller.rb:42:in `create'
+Started GET "/students/new" for 172.17.0.1 at 2024-10-26 03:39:35 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/_form.html.erb (Duration: 31.5ms | Allocations: 2630)
+  Rendered students/new.html.erb within layouts/application (Duration: 81.0ms | Allocations: 2924)
+  Rendered layout layouts/application.html.erb (Duration: 249.5ms | Allocations: 4924)
+Completed 200 OK in 511ms (Views: 434.4ms | ActiveRecord: 0.0ms | Allocations: 5962)
+
+
+Started GET "/students/new" for 172.17.0.1 at 2024-10-26 03:40:35 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/_form.html.erb (Duration: 24.0ms | Allocations: 2516)
+  Rendered students/new.html.erb within layouts/application (Duration: 275.8ms | Allocations: 2808)
+  Rendered layout layouts/application.html.erb (Duration: 500.5ms | Allocations: 4786)
+Completed 200 OK in 755ms (Views: 554.0ms | ActiveRecord: 0.0ms | Allocations: 10983)
+
+
+Started POST "/students" for 172.17.0.1 at 2024-10-26 03:41:18 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"N/A", "graduation_date"=>"2024-05-25", "profile_picture"=>"Violet Cat.jpg"}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 304ms (ActiveRecord: 0.0ms | Allocations: 6239)
+
+
+  
+ActiveSupport::MessageVerifier::InvalidSignature (mismatched digest):
+  
+app/controllers/students_controller.rb:42:in `create'
+Started GET "/students/2" for 172.17.0.1 at 2024-10-26 03:43:50 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mStudent Load (75.5ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/students_controller.rb:81:in `set_student'
+Completed 404 Not Found in 100ms (ActiveRecord: 132.5ms | Allocations: 2145)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Student with 'id'=2):
+  
+app/controllers/students_controller.rb:81:in `set_student'
+Started GET "/students?search%5Bmajor%5D=Computer+Engineering+BS&commit=Search" for 172.17.0.1 at 2024-10-27 16:54:43 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+  Parameters: {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search"}
+Params: #<ActionController::Parameters {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search", "controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: #<ActionController::Parameters {"major"=>"Computer Engineering BS"} permitted: false>
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (723.3ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."major" = ?[0m  [["major", "Computer Engineering BS"]]
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 769.1ms | Allocations: 1521)
+  Rendered students/index.html.erb within layouts/application (Duration: 2275.6ms | Allocations: 2859)
+  Rendered layout layouts/application.html.erb (Duration: 3875.4ms | Allocations: 4530)
+Completed 200 OK in 4300ms (Views: 2730.0ms | ActiveRecord: 1244.9ms | Allocations: 4938)
+
+
+Started GET "/" for 172.17.0.1 at 2024-10-27 16:59:41 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+Params: #<ActionController::Parameters {"controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: {}
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (29.2ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 22.7ms | Allocations: 1297)
+  Rendered students/index.html.erb within layouts/application (Duration: 427.7ms | Allocations: 1963)
+  Rendered layout layouts/application.html.erb (Duration: 2060.4ms | Allocations: 3613)
+Completed 200 OK in 2246ms (Views: 2091.8ms | ActiveRecord: 29.1ms | Allocations: 3896)
+
+
+Started GET "/students/2" for 172.17.0.1 at 2024-10-27 17:01:32 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mStudent Load (6.8ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/students_controller.rb:81:in `set_student'
+Completed 404 Not Found in 112ms (ActiveRecord: 6.8ms | Allocations: 849)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Student with 'id'=2):
+  
+app/controllers/students_controller.rb:81:in `set_student'
+Started GET "/students/2" for 172.17.0.1 at 2024-10-27 17:02:22 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#show as HTML
+  Parameters: {"id"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering students/show.html.erb within layouts/application
+  Rendered students/show.html.erb within layouts/application (Duration: 96.3ms | Allocations: 1480)
+  Rendered layout layouts/application.html.erb (Duration: 102.3ms | Allocations: 1572)
+Completed 500 Internal Server Error in 345ms (ActiveRecord: 0.0ms | Allocations: 2701)
+
+
+  
+ActionView::Template::Error ('nil' is not an ActiveModel-compatible object. It must implement :to_partial_path.):
+    1: <p style="color: green"><%= notice %></p>
+    2: 
+    3: <%= render @student %>
+    4: 
+    5: 
+    6: <div>
+  
+app/views/students/show.html.erb:3
+Started GET "/" for 172.17.0.1 at 2024-10-27 17:18:35 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+Params: #<ActionController::Parameters {"controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: {}
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (14.7ms)[0m  [1m[34mSELECT "students".* FROM "students"[0m
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 16.3ms | Allocations: 1493)
+  Rendered students/index.html.erb within layouts/application (Duration: 202.8ms | Allocations: 2831)
+  Rendered layout layouts/application.html.erb (Duration: 379.5ms | Allocations: 4840)
+Completed 200 OK in 773ms (Views: 218.7ms | ActiveRecord: 196.8ms | Allocations: 7821)
+
+
+Started GET "/students?search%5Bmajor%5D=Computer+Engineering+BS&commit=Search" for 172.17.0.1 at 2024-10-27 17:18:51 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#index as HTML
+  Parameters: {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search"}
+Params: #<ActionController::Parameters {"search"=>{"major"=>"Computer Engineering BS"}, "commit"=>"Search", "controller"=>"students", "action"=>"index"} permitted: false>
+Search Params: #<ActionController::Parameters {"major"=>"Computer Engineering BS"} permitted: false>
+  Rendering layout layouts/application.html.erb
+  Rendering students/index.html.erb within layouts/application
+  [1m[36mStudent Load (2.0ms)[0m  [1m[34mSELECT "students".* FROM "students" WHERE "students"."major" = ?[0m  [["major", "Computer Engineering BS"]]
+  ↳ app/views/students/index.html.erb:6
+  Rendered students/_search_form.html.erb (Duration: 9.1ms | Allocations: 1297)
+  Rendered students/index.html.erb within layouts/application (Duration: 36.2ms | Allocations: 1987)
+  Rendered layout layouts/application.html.erb (Duration: 279.8ms | Allocations: 3632)
+Completed 200 OK in 338ms (Views: 285.4ms | ActiveRecord: 7.4ms | Allocations: 4398)
+
+
+Started GET "/students/new" for 172.17.0.1 at 2024-10-27 17:20:18 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering students/new.html.erb within layouts/application
+  Rendered students/_form.html.erb (Duration: 48.4ms | Allocations: 2472)
+  Rendered students/new.html.erb within layouts/application (Duration: 274.7ms | Allocations: 2759)
+  Rendered layout layouts/application.html.erb (Duration: 472.1ms | Allocations: 4428)
+Completed 200 OK in 715ms (Views: 476.1ms | ActiveRecord: 4.5ms | Allocations: 8108)
+
+
+Started POST "/students" for 172.17.0.1 at 2024-10-27 17:20:40 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"N/A", "graduation_date"=>"2025-05-25", "profile_picture"=>""}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 146ms (ActiveRecord: 0.0ms | Allocations: 3567)
+
+
+  
+NoMethodError (undefined method `expected_graduation_date' for #<Student id: nil, first_name: "Aidan", last_name: "Gardner", major: "Computer Science BS", minor: "N/A", graduation_date: "2025-05-25", created_at: nil, updated_at: nil, profile_picture: nil>):
+  
+app/controllers/students_controller.rb:45:in `block in create'
+app/controllers/students_controller.rb:44:in `create'
+Started POST "/students" for 172.17.0.1 at 2024-10-27 17:21:21 +0000
+Cannot render console from 172.17.0.1! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by StudentsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "student"=>{"first_name"=>"Aidan", "last_name"=>"Gardner", "major"=>"Computer Science BS", "minor"=>"N/A", "graduation_date"=>"2025-05-25", "profile_picture"=>"Blue rose.jpg"}, "commit"=>"Create Student"}
+Completed 500 Internal Server Error in 562ms (ActiveRecord: 0.0ms | Allocations: 6190)
+
+
+  
+ActiveSupport::MessageVerifier::InvalidSignature (mismatched digest):
+  
+app/controllers/students_controller.rb:42:in `create'
