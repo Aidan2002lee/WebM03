@@ -10,11 +10,6 @@
   </p>
 
   <p>
-    <strong>School email:</strong>
-    <%= student.school_email %>
-  </p>
-
-  <p>
     <strong>Major:</strong>
     <%= student.major %>
   </p>
@@ -30,8 +25,13 @@
   </p>
 
   <p>
-    <strong>Profile Picture:</strong>
-    <%= student.profile_picture %>
+    <strong>Profile Picture:</strong><br>
+    <% if @student && @student.profile_picture.attached? %>
+      <%= image_tag @student.profile_picture %>
+    <% else %>
+      <%= image_tag 'https://via.placeholder.com/50x30', size: '50x30' %>
+    <% end %>
   </p>
+
 
 </div>
